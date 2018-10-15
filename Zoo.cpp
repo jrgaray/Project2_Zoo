@@ -64,26 +64,89 @@ Zoo::~Zoo(){
 
 /**************************************************************************************************
 ** Description: Public method. Allows user to buy animals. Frees memory of the Animal type to allow
-the user to 
+the the array to hold an animal of a specific type.
 **************************************************************************************************/
 void Zoo::buyTiger(){
 	delete tigers[tigerCount];
 	tigers[tigerCount] = new Tiger(1); 
 	tigerCount++;
-	cout << "You just bought a fierce tiger!" << endl << "You now have " << tigerCount << " tigers." << endl;
+	cout << "You just bought a fierce tiger!" << endl 
+	<< "You now have " << tigerCount << " tigers." << endl;
 }
 
 void Zoo::buyPenguin(){
 	delete penguins[penguinCount];
 	penguins[penguinCount] = new Penguin(1); 
 	penguinCount++;
-	cout << "You just bought a adorable penguin!" << endl << "You now have " << penguinCount << " penguins." << endl;
+	cout << "You just bought a adorable penguin!" << endl << 
+	"You now have " << penguinCount << " penguins." << endl;
 }
 void Zoo::buyTurtle(){
 	delete turtles[turtleCount];
 	turtles[turtleCount] = new Turtle(1); 
 	turtleCount++;
-	cout << "You just bought a radical turtle!" << endl << "You now have " << turtleCount << " turtle" << endl;
+	cout << "You just bought a radical turtle!" << endl 
+	<< "You now have " << turtleCount << " turtle" << endl;
+}
+
+/**************************************************************************************************
+** Description: Public method. These methods are used to simulate when new animals are born. Free
+memory of the Animal type to allow the array to hold an animal of a specfic type.
+**************************************************************************************************/
+void Zoo::tigerIsBorn(){
+	delete tigers[tigerCount];
+	tigers[tigerCount] = new Tiger();
+	tigerCount++;
+	cout << "A fierce, tiny, tiger was born!" << endl 
+	<< "You now have " << tigerCount << " tigers." << endl;
+}
+
+
+void Zoo::penguinIsBorn(){
+	delete penguins[penguinCount];
+	penguins[penguinCount] = new Penguin(); 
+	penguinCount++;
+	cout << "An adorable penguin was born!" << endl << 
+	"You now have " << penguinCount << " penguins." << endl;
+}
+void Zoo::turtleIsBorn(){
+	delete turtles[turtleCount];
+	turtles[turtleCount] = new Turtle(); 
+	turtleCount++;
+	//TODO: work on the problem of the when the animal count becomes too large.
+	// if(turtleCount != 0 && turtleCount % 10 == 0){
+	// 	getMoreTurtleCages(sizeOfTigerCage);
+	// }
+	cout << "A radical turtle was just hatched!" << endl 
+	<< "You now have " << turtleCount << " turtle" << endl;
+}
+
+int Zoo::feedAnimalsCost(){
+	cout << "You fed all the animals!" << endl << "It cost $" <<  tigerCount * tigersFeedCost() + penguinCount* penguinsFeedCost() + turtleCount * turtlesFeedCost();
+	return tigerCount * tigersFeedCost() + penguinCount* penguinsFeedCost() + turtleCount * turtlesFeedCost();
+}
+
+int Zoo::tigersFeedCost(){
+	if(tigerCount == 0){
+		return 0;
+	}else{
+		return getTiger()->getBaseFoodCost() * 5;	
+	}
+}
+
+int Zoo::penguinsFeedCost(){
+	if(penguinCount == 0){
+		return 0;
+	}else{
+		return getPenguin()->getBaseFoodCost();	
+	}
+}
+int Zoo::turtlesFeedCost(){
+	if(turtleCount == 0){
+		return 0;
+	}else{
+		return getTurtle()->getBaseFoodCost() / 2 ;	
+	}
 }
 void Zoo::getAllTigersAges(){
 	if(tigerCount == 0){
@@ -95,6 +158,9 @@ void Zoo::getAllTigersAges(){
 		}
 	}
 }
+
+
+
 Animal* Zoo::getTiger(){
 	return tigers[tigerCount-1];
 }
@@ -121,3 +187,37 @@ bool Zoo::getIsFirstDay(){
 void Zoo::setIsFirstDay(bool notFirstDay){
 	isFirstDay = notFirstDay;
 }
+void getMoreTurtleCages(int cages){
+
+}
+/**************************************************************************************************
+** I don't know if I will use this.
+**************************************************************************************************/
+
+// Animal** Zoo::getTigerArray(){
+// 	return tigers;
+// }
+
+// Animal** Zoo::getPenguinArray(){
+// 	return penguins;
+// }
+// Animal** Zoo::getTurtleArray(){
+// 	return turtles;
+// }
+
+// void Zoo::buyAnimal(Animal **& animal, int& animalCount){
+// 	delete animal[animalCount];
+// 	animal[animalCount] = new animal[animalCount];
+// 	animalCount++;
+// }
+// int& Zoo::getTigerCount(){
+// 	return tigerCount;
+// }
+
+// int& Zoo::getPenguinCount(){
+// 	return penguinCount;
+// }
+
+// int& Zoo::getTurtleCount(){
+// 	return turtleCount;
+// }

@@ -17,3 +17,6 @@ Penguin::Penguin(int age){
 Penguin::~Penguin(){
 
 }
+int Penguin::penguinFeedCost(int numberOfPenguins){
+	return numberOfPenguins * baseFoodCost;
+}

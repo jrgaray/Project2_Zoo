@@ -27,17 +27,38 @@ private:
 	Animal **tigers;
 	Animal **penguins;
 	Animal **turtles;
+
+	int tigersFeedCost();
+	int penguinsFeedCost();
+	int turtlesFeedCost();
 public:
 	Zoo();
 	~Zoo();
+	// void buyAnimal(Animal**&, int&);
 	void buyTiger();
 	void buyTurtle();
 	void buyPenguin();
+
+	void tigerIsBorn();
+	void penguinIsBorn();
+	void turtleIsBorn();
+
+	int feedAnimalsCost();
+
 	void getAllTigersAges();
 	void animalsAge();
+
 	Animal* getTiger();
 	Animal* getPenguin();
 	Animal* getTurtle();
+
+	// Animal** getTigerArray();
+	// Animal** getPenguinArray();
+	// Animal** getTurtleArray();
+
+	// int& getTigerCount();
+	// int& getPenguinCount();
+	// int& getTurtleCount();
 
 	bool getIsFirstDay();
 	void setIsFirstDay(bool);

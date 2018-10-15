@@ -17,3 +17,7 @@ Tiger::Tiger(int age){
 }
 Tiger::~Tiger(){
 }
+
+int Tiger::tigerFeedCost(int numberOfTigers){
+	return numberOfTigers * 5 * baseFoodCost;
+}

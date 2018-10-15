@@ -8,5 +8,7 @@ public:
 	Penguin();
 	Penguin(int);
 	~Penguin();
+
+	int penguinFeedCost(int);
 };
 #endif

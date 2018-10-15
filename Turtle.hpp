@@ -8,5 +8,7 @@ public:
 	Turtle();
 	Turtle(int);
 	~Turtle();
+
+	int turtleFeedCost(int);
 };
 #endif

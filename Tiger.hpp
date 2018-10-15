@@ -8,5 +8,7 @@ public:
 	Tiger();
 	Tiger(int);
 	~Tiger();
+
+	int tigerFeedCost(int);
 };
 #endif

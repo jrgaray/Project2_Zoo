@@ -1,4 +1,4 @@
-#include "Turtle.hpp"
+	#include "Turtle.hpp"
 
 Turtle::Turtle(){
 	age = 0;
@@ -15,4 +15,8 @@ Turtle::Turtle(int age){
 	babies = 0;
 }
 Turtle::~Turtle(){
+}
+
+int Turtle::turtleFeedCost(int numberOfTurtles){
+	return numberOfTurtles * (baseFoodCost /2);
 }
