@@ -17,6 +17,8 @@ their starting attributes.
 **************************************************************************************************/
 Zoo::Zoo(){
 
+	isFirstDay = true;
+
 	//The number of each animal the zoo has.
 	tigerCount = 0;
 	penguinCount = 0;
@@ -66,20 +68,20 @@ the user to
 **************************************************************************************************/
 void Zoo::buyTiger(){
 	delete tigers[tigerCount];
-	tigers[tigerCount] = new Tiger(); 
+	tigers[tigerCount] = new Tiger(1); 
 	tigerCount++;
 	cout << "You just bought a fierce tiger!" << endl << "You now have " << tigerCount << " tigers." << endl;
 }
 
 void Zoo::buyPenguin(){
 	delete penguins[penguinCount];
-	penguins[penguinCount] = new Penguin(); 
+	penguins[penguinCount] = new Penguin(1); 
 	penguinCount++;
 	cout << "You just bought a adorable penguin!" << endl << "You now have " << penguinCount << " penguins." << endl;
 }
 void Zoo::buyTurtle(){
 	delete turtles[turtleCount];
-	turtles[turtleCount] = new Turtle(); 
+	turtles[turtleCount] = new Turtle(1); 
 	turtleCount++;
 	cout << "You just bought a radical turtle!" << endl << "You now have " << turtleCount << " turtle" << endl;
 }
@@ -112,4 +114,10 @@ void Zoo::animalsAge(){
 	for(int tu = 0; tu < turtleCount; tu++){
 		turtles[tu]->animalSeesAnotherDay();
 	}
+}
+bool Zoo::getIsFirstDay(){
+	return isFirstDay;
+}
+void Zoo::setIsFirstDay(bool notFirstDay){
+	isFirstDay = notFirstDay;
 }

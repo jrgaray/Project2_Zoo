@@ -6,6 +6,7 @@ private:
 	int babies;
 public:
 	Tiger();
+	Tiger(int);
 	~Tiger();
 };
 #endif

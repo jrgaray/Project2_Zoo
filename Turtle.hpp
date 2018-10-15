@@ -6,6 +6,7 @@ private:
 	int babies = 0;
 public:
 	Turtle();
+	Turtle(int);
 	~Turtle();
 };
 #endif

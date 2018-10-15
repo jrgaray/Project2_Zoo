@@ -6,6 +6,7 @@ private:
 	int babies;
 public:
 	Penguin();
+	Penguin(int);
 	~Penguin();
 };
 #endif

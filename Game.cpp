@@ -13,25 +13,34 @@ Game::Game(){
 }
 
 void Game::run(){
-	setup();
-	zoo->animalsAge();
-	zoo->getAllTigersAges();
-	// startMenu();
-	// while(isRunning){
-	// 	setup();
+	startMenu();
+	while(isRunning){
+		setup();
+		if(!zoo->getIsFirstDay()){
+			zoo->animalsAge();
+			zoo->setIsFirstDay(false);
+		}
+		zoo->getAllTigersAges();
+		zoo->animalsAge();
+		zoo->getAllTigersAges();
+		end();
+		isRunning = false;
 	// 	gameplay();
-	// }
-	end();
+	}
 }
 
 void Game::startMenu(){	
 	string input;
 	cout << "1: Play Zoo Tycoon Boom" << endl << "0: Exit" << endl;
+	getline(cin, input);
+
+	isRunning = stoi(input);
+
 
 }
 
 void Game::gameplay(){
-	// if(!isFirstDay){
+	// if(!getIsFirstDay()){
 	// 	animalsAge();
 	// }
 	// feedAnimals();
@@ -53,8 +62,26 @@ void Game::setup(){
 		zoo->buyTiger();
 		playerMoney -= zoo->getTiger()->getCost();
 	}
-	cout << playerMoney <<endl;
-	zoo->getAllTigersAges();
+
+	cout << "How many penguins would you like to purchase? You have to have one or two of these guys in the park! They're too cute!" << endl
+		<< "Enter 1 or 2 to purchase: ";
+
+	getline(cin, penguins);
+	for(int n = 0; n < (stoi(penguins)); n++){
+		zoo->buyPenguin();
+		playerMoney -= zoo->getPenguin()->getCost();
+	}
+
+	cout << "How many turtles would you like to purchase? You have to have one or two of these guys in the park! They're turtles!" << endl
+		<< "Enter 1 or 2 to purchase: ";
+
+	getline(cin, turtles);
+	for(int n = 0; n < (stoi(turtles)); n++){
+		zoo->buyTurtle();
+		playerMoney -= zoo->getTurtle()->getCost();
+	}
+
+	cout << "You have $" << playerMoney << " left." << endl << endl;
 }
 
 

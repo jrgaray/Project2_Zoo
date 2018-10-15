@@ -7,5 +7,12 @@ Turtle::Turtle(){
 	payoff = 5;
 	babies = 0;
 }
+Turtle::Turtle(int age){
+	this->age = age;
+	cost = 100;
+	numberOfBabies = 10;
+	payoff = 5;
+	babies = 0;
+}
 Turtle::~Turtle(){
 }

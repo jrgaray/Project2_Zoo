@@ -14,6 +14,8 @@ in charge of the managing of the zoo.
 
 class Zoo{
 private:
+	bool isFirstDay;
+
 	int tigerCount;
 	int penguinCount;
 	int turtleCount;
@@ -36,6 +38,9 @@ public:
 	Animal* getTiger();
 	Animal* getPenguin();
 	Animal* getTurtle();
+
+	bool getIsFirstDay();
+	void setIsFirstDay(bool);
 
 
 };
