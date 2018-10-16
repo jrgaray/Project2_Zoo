@@ -39,7 +39,8 @@ void Game::setup(){
 	cout << "Let's build a zoo!" << endl << endl
 	<< "You've inherited $100,000 from you late great uncle and an empty zoo." << endl 
 	<< "Let's buy some animals!" << endl 
-	<< "How many tigers would you like to buy? There's only two available at the moment." << endl;
+	<< "How many tigers would you like to buy? There's only two available at the moment." << endl
+	<< "Enter 1 or 2 to purchase: ";
 
 	getline(cin, tigers);
 	for(int n = 0; n < (stoi(tigers)); n++){
@@ -80,7 +81,8 @@ void Game::gameplay(){
 		feedAnimals();
 		cout << "You have " << zoo->getTigerCount() << endl;
 		// randomEvent();
-		// payoff();
+		zoo->getAllTigersAges();
+		payoff();
 		purchase();
 		cout << "Do you want to continue to the next day?" << endl;
 		getline(cin, continueGame);
@@ -93,6 +95,10 @@ void Game::feedAnimals(){
 	cout << endl << "You have $" << playerMoney << " left." << endl;
 }
 
+// void randomEvent(){
+// 	zoo->randomEvent();
+// }
+
 void Game::purchase(){
 	string choice;
 	cout << "You have " << zoo->getTigerCount() << " tigers." << endl
@@ -104,7 +110,7 @@ void Game::purchase(){
 		<< "1: Adult Tiger" << endl
 		<<"2: Adult Penguin" << endl
 		<<"3: Adult Turtle" << endl
-		<< "0: Pass on making a purchase" << endl
+		<< "0: Pass on making a purchase" << endl << endl
 		<< "Your choice: ";
 	getline(cin, choice);
 	//validate this	
@@ -121,6 +127,12 @@ void Game::purchase(){
 		case 0:	
 			break;
 	}
+}
+
+void Game::payoff(){
+	playerMoney += zoo->totalAnimalsPayoff();
+	cout << "Your zoo made $" << zoo->totalAnimalsPayoff() << " today!" << endl
+		<< "You have $" << playerMoney << " in your bank." << endl;
 }
 
 void Game::setIsRunning(bool isRunning){

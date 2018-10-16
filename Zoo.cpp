@@ -44,6 +44,9 @@ Zoo::Zoo(){
 	}
 }
 
+/**************************************************************************************************
+** Description: Deconstructor for the Zoo class. Any memory that has been allocated will be freed.
+**************************************************************************************************/
 
 Zoo::~Zoo(){
 	for(int n = 0; n < sizeOfTurtleCage; n++){
@@ -60,11 +63,17 @@ Zoo::~Zoo(){
 	delete [] turtles;
 }
 
+/**************************************************************************************************
+** Description: 
+**************************************************************************************************/
 int Zoo::feedAnimalsCost(){
 	cout << "You fed all the animals!" << endl << "It cost $" <<  tigerCount * tigersFeedCost() + penguinCount* penguinsFeedCost() + turtleCount * turtlesFeedCost();
 	return tigerCount * tigersFeedCost() + penguinCount* penguinsFeedCost() + turtleCount * turtlesFeedCost();
 }
 
+/**************************************************************************************************
+** Description: 
+**************************************************************************************************/
 int Zoo::tigersFeedCost(){
 	if(tigerCount == 0){
 		return 0;
@@ -98,8 +107,40 @@ void Zoo::getAllTigersAges(){
 	}
 }
 
+/**************************************************************************************************
+** Description: 
+**************************************************************************************************/
+int Zoo::totalAnimalsPayoff(){
+	int pay = 0;
+	for(int n = 0; n < tigerCount; n++){
+		pay += tigers[n]->getPayoff();
+	}
+	for(int n = 0; n < penguinCount; n++){
+		pay += penguins[n]->getPayoff();
+	}
+	for(int n = 0; n < turtleCount; n++){
+		pay += turtles[n]->getPayoff();
+	}
+	return pay;
+}
 
+/**************************************************************************************************
+** Description: Getters methods. Returns an integer representing the number of the specified animal. 
+**************************************************************************************************/
+int Zoo::getTigerCount(){
+	return tigerCount;
+}
 
+int Zoo::getPenguinCount(){
+	return penguinCount;
+}
+
+int Zoo::getTurtleCount(){
+	return turtleCount;
+}
+/**************************************************************************************************
+** Description: Getter methods. Returns the last Animal pointer in an array.
+**************************************************************************************************/
 Animal* Zoo::getTiger(){
 	return tigers[tigerCount-1];
 }
@@ -109,6 +150,9 @@ Animal* Zoo::getTurtle(){
 Animal* Zoo::getPenguin(){
 	return penguins[penguinCount-1];
 }
+/**************************************************************************************************
+** Description: Public method. Increments the animals age by one day. 
+**************************************************************************************************/
 void Zoo::animalsAge(){
 	for(int n = 0; n < tigerCount; n++){
 		tigers[n]->animalSeesAnotherDay();
@@ -121,47 +165,54 @@ void Zoo::animalsAge(){
 	}
 }
 
-void getMoreTurtleCages(int cages){
+/**************************************************************************************************
+** Description: Private method. Takes in a reference to a pointer to a pointer and a reference to 
+an integer and returns nothing. Dynamically allocates memory when all of the "cages" are filled.
+**************************************************************************************************/
+void Zoo::getMoreCages(Animal **&originalCages, int &numberOfCages){
+	Animal **newCages = new Animal*[numberOfCages+10];
+	for(int n = 0; n < numberOfCages + 10; n++){
+		if(n < numberOfCages){
+			newCages[n] = originalCages[n];
+		}
+		else{
+			newCages[n] = new Animal();
+		}
+	}
+	delete [] originalCages;
+	originalCages = newCages;	
+	numberOfCages += 10;
+}
 
-}
-Animal**& Zoo::getTigerArray(){
-	return tigers;
-}
-
-Animal**& Zoo::getPenguinArray(){
-	return penguins;
-}
-Animal**& Zoo::getTurtleArray(){
-	return turtles;
-}
-
+/**************************************************************************************************
+** Description: 
+**************************************************************************************************/
 void Zoo::newAnimal(int animalType, int animalAge){
 	switch(animalType){
 		case 1:
 			delete tigers[tigerCount];
 			tigers[tigerCount] = new Tiger(animalAge);
 			tigerCount++;
+			if(tigerCount == sizeOfTigerCage){
+				getMoreCages(tigers, sizeOfTigerCage);
+			}
 			break;
 		case 2:
 			delete penguins[penguinCount];
 			penguins[penguinCount] = new Penguin(animalAge);
 			penguinCount++;
+			if(penguinCount == sizeOfPenguinCage){
+				getMoreCages(penguins, sizeOfPenguinCage);
+			}
 			break;
 		case 3:
 			delete turtles[turtleCount];
 			turtles[turtleCount] = new Turtle(animalAge);
 			turtleCount++;
+			if(turtleCount == sizeOfTurtleCage){
+				getMoreCages(turtles, sizeOfTurtleCage);
+			}
 			break;
 	}
 }
-int& Zoo::getTigerCount(){
-	return tigerCount;
-}
 
-int& Zoo::getPenguinCount(){
-	return penguinCount;
-}
-
-int& Zoo::getTurtleCount(){
-	return turtleCount;
-}

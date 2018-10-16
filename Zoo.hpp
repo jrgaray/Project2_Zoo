@@ -30,12 +30,15 @@ private:
 	int tigersFeedCost();
 	int penguinsFeedCost();
 	int turtlesFeedCost();
+
+	void getMoreCages(Animal**&, int&);
 public:
 	Zoo();
 	~Zoo();
 	void newAnimal(int, int);
 
 	int feedAnimalsCost();
+	int totalAnimalsPayoff();
 
 	void getAllTigersAges();
 	void animalsAge();
@@ -43,6 +46,10 @@ public:
 	Animal* getTiger();
 	Animal* getPenguin();
 	Animal* getTurtle();
+
+	int getTigerCount();
+	int getPenguinCount();
+	int getTurtleCount();
 
 
 

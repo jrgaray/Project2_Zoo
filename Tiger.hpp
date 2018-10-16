@@ -9,6 +9,5 @@ public:
 	Tiger(int);
 	~Tiger();
 
-	int tigerFeedCost(int);
 };
 #endif
