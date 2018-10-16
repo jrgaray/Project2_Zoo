@@ -31,19 +31,27 @@ private:
 	int tigersFeedCost();
 	int penguinsFeedCost();
 	int turtlesFeedCost();
+
+	int getTigerPayoff();
+	int getPenguinPayoff();
+	int getTurtlePayoff();
+
 public:
 	Zoo();
 	~Zoo();
-	// void buyAnimal(Animal**&, int&);
-	void buyTiger();
-	void buyTurtle();
-	void buyPenguin();
+
+	void buyAnimal(Animal**&, int&, int);
+	void buyTiger(int);
+	void buyTurtle(int);
+	void buyPenguin(int);
 
 	void tigerIsBorn();
 	void penguinIsBorn();
 	void turtleIsBorn();
 
 	int feedAnimalsCost();
+
+	int totalPayoff();
 
 	void getAllTigersAges();
 	void animalsAge();
@@ -52,13 +60,13 @@ public:
 	Animal* getPenguin();
 	Animal* getTurtle();
 
-	// Animal** getTigerArray();
+	Animal**& getTigerArray();
 	// Animal** getPenguinArray();
 	// Animal** getTurtleArray();
 
-	// int& getTigerCount();
-	// int& getPenguinCount();
-	// int& getTurtleCount();
+	int& getTigerCount();
+	int& getPenguinCount();
+	int& getTurtleCount();
 
 	bool getIsFirstDay();
 	void setIsFirstDay(bool);

@@ -35,6 +35,8 @@ void Game::setup(){
 	isFirstDay = true;
 	zoo = new Zoo();
 
+	cout << zoo->getTigerCount() << endl;
+
 	cout << "Welcome to Zuuu Tycoon!" << endl <<endl;
 
 	cout << "Let's build a zoo!" << endl << endl
@@ -44,7 +46,8 @@ void Game::setup(){
 
 	getline(cin, tigers);
 	for(int n = 0; n < (stoi(tigers)); n++){
-		zoo->buyTiger();
+		// zoo->buyTiger(1);
+		zoo->buyAnimal(zoo->getTigerArray(), zoo->getTigerCount(), 1);
 		playerMoney -= zoo->getTiger()->getCost();
 	}
 
@@ -53,7 +56,7 @@ void Game::setup(){
 
 	getline(cin, penguins);
 	for(int n = 0; n < (stoi(penguins)); n++){
-		zoo->buyPenguin();
+		zoo->buyPenguin(1);
 		playerMoney -= zoo->getPenguin()->getCost();
 	}
 
@@ -62,7 +65,7 @@ void Game::setup(){
 
 	getline(cin, turtles);
 	for(int n = 0; n < (stoi(turtles)); n++){
-		zoo->buyTurtle();
+		zoo->buyTurtle(1);
 		playerMoney -= zoo->getTurtle()->getCost();
 	}
 
@@ -76,14 +79,13 @@ void Game::gameplay(){
 		cout << "Day " << day << endl
 		<< "=============" << endl << endl;
 
-		if(!zoo->getIsFirstDay()){
+		if(day == 1){
 			zoo->animalsAge();
-			zoo->setIsFirstDay(false);
 		}
 		feedAnimals();
 		// randomEvent();
-		// payoff();
-		// purchase();
+		payoff();
+		purchase();
 		cout << "Do you want to continue to the next day?" << endl;
 		getline(cin, continueGame);
 
@@ -92,11 +94,44 @@ void Game::gameplay(){
 	}
 }
 void Game::feedAnimals(){
+	cout << "You fed all the animals!" << endl << "It cost $" <<  zoo->feedAnimalsCost() << endl;
 	playerMoney -= zoo->feedAnimalsCost();	
-	cout << endl << "You have $" << playerMoney << " left." << endl;
 }
 
+void Game::payoff(){
+	cout << "Your zoo gained $" << zoo->totalPayoff() << " today!" << endl
+		<< "You have $" << playerMoney << " left" << endl << endl;
 
+	playerMoney += zoo->totalPayoff();	
+}
+
+void Game::purchase(){
+	string choice;
+	cout << "It's the end of day and the the animal wrangler is coming around with some more animals." << endl;
+	cout << "You have " << zoo->getTigerCount() << endl
+		<< "You have " << zoo->getPenguinCount() << endl
+		<< "You have " << zoo->getTurtleCount() << endl
+		<< "You have $" << playerMoney << " left." << endl
+		<< "1: Buy an adult tiger" << endl
+		<< "2: Buy an adult penguin" << endl
+		<< "3: Buy an adult turtle" << endl
+		<< "0: Don't buy an animal today" << endl;
+	getline(cin, choice);
+	zoo->buyAnimal(zoo->getTigerArray(), zoo->getTigerCount(), stoi(choice));
+	// switch(stoi(choice)){
+	// 	case 1:
+	// 		zoo->buyTiger(3);
+	// 		break;
+	// 	case 2:
+	// 		zoo->buyPenguin(3);
+	// 		break;
+	// 	case 3:
+	// 		zoo->buyTurtle(3);
+	// 		break;
+	// 	case 0:
+	// 		break;
+	// }
+}
 
 void Game::setIsRunning(bool isRunning){
 	this->isRunning = isRunning;

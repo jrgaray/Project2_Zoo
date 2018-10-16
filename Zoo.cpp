@@ -66,24 +66,24 @@ Zoo::~Zoo(){
 ** Description: Public method. Allows user to buy animals. Frees memory of the Animal type to allow
 the the array to hold an animal of a specific type.
 **************************************************************************************************/
-void Zoo::buyTiger(){
+void Zoo::buyTiger(int age){
 	delete tigers[tigerCount];
-	tigers[tigerCount] = new Tiger(1); 
+	tigers[tigerCount] = new Tiger(age); 
 	tigerCount++;
 	cout << "You just bought a fierce tiger!" << endl 
 	<< "You now have " << tigerCount << " tigers." << endl;
 }
 
-void Zoo::buyPenguin(){
+void Zoo::buyPenguin(int age){
 	delete penguins[penguinCount];
-	penguins[penguinCount] = new Penguin(1); 
+	penguins[penguinCount] = new Penguin(age); 
 	penguinCount++;
 	cout << "You just bought a adorable penguin!" << endl << 
 	"You now have " << penguinCount << " penguins." << endl;
 }
-void Zoo::buyTurtle(){
+void Zoo::buyTurtle(int age){
 	delete turtles[turtleCount];
-	turtles[turtleCount] = new Turtle(1); 
+	turtles[turtleCount] = new Turtle(age); 
 	turtleCount++;
 	cout << "You just bought a radical turtle!" << endl 
 	<< "You now have " << turtleCount << " turtle" << endl;
@@ -122,7 +122,6 @@ void Zoo::turtleIsBorn(){
 }
 
 int Zoo::feedAnimalsCost(){
-	cout << "You fed all the animals!" << endl << "It cost $" <<  tigerCount * tigersFeedCost() + penguinCount* penguinsFeedCost() + turtleCount * turtlesFeedCost();
 	return tigerCount * tigersFeedCost() + penguinCount* penguinsFeedCost() + turtleCount * turtlesFeedCost();
 }
 
@@ -144,7 +143,8 @@ int Zoo::penguinsFeedCost(){
 int Zoo::turtlesFeedCost(){
 	if(turtleCount == 0){
 		return 0;
-	}else{
+	}
+	else{
 		return getTurtle()->getBaseFoodCost() / 2 ;	
 	}
 }
@@ -156,6 +156,35 @@ void Zoo::getAllTigersAges(){
 		for(int n = 0; n < tigerCount; n++){
 			cout <<"Tiger " << n +1 <<" is " << tigers[n]->getAge() << " days old." << endl;;
 		}
+	}
+}
+
+int Zoo::totalPayoff(){
+		return getTigerPayoff() + getPenguinPayoff() + getTurtlePayoff();
+}
+
+int Zoo::getTigerPayoff(){
+	if(tigerCount == 0){
+		return 0;
+	}
+	else{
+		return tigerCount * getTiger()->getPayoff();
+	}
+}
+int Zoo::getPenguinPayoff(){
+	if(penguinCount == 0){
+		return 0;
+	}
+	else{
+		return penguinCount * getPenguin()->getPayoff();
+	}
+}
+int Zoo::getTurtlePayoff(){
+	if(turtleCount == 0){
+		return 0;
+	}
+	else{
+		return turtleCount * getTurtle()->getPayoff();
 	}
 }
 
@@ -194,9 +223,9 @@ void getMoreTurtleCages(int cages){
 ** I don't know if I will use this.
 **************************************************************************************************/
 
-// Animal** Zoo::getTigerArray(){
-// 	return tigers;
-// }
+Animal**& Zoo::getTigerArray(){
+	return tigers;
+}
 
 // Animal** Zoo::getPenguinArray(){
 // 	return penguins;
@@ -205,19 +234,33 @@ void getMoreTurtleCages(int cages){
 // 	return turtles;
 // }
 
-// void Zoo::buyAnimal(Animal **& animal, int& animalCount){
-// 	delete animal[animalCount];
-// 	animal[animalCount] = new animal[animalCount];
-// 	animalCount++;
-// }
-// int& Zoo::getTigerCount(){
-// 	return tigerCount;
-// }
+void Zoo::buyAnimal(Animal **& animal, int& animalCount, int animalType){
+	delete animal[animalCount];
+	switch(animalType){
+		case 1:
+			animal[animalCount] = new Tiger(3);
+			animalCount +=1;
+			cout << "You got a tiger" << endl;
+			break;
+		case 2:
+			animal[animalCount] = new Penguin(3);
+			animalCount++;
+			break;
+		case 3:
+			animal[animalCount] = new Turtle (3);
+			animalCount++;
+			break;
+	}
+	animalCount++;
+}
+int& Zoo::getTigerCount(){
+	return tigerCount;
+}
 
-// int& Zoo::getPenguinCount(){
-// 	return penguinCount;
-// }
+int& Zoo::getPenguinCount(){
+	return penguinCount;
+}
 
-// int& Zoo::getTurtleCount(){
-// 	return turtleCount;
-// }
+int& Zoo::getTurtleCount(){
+	return turtleCount;
+}

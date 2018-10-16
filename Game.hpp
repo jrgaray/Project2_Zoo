@@ -12,7 +12,6 @@ private:
    void reset();
    void setIsRunning(bool);
 
-
    void feedAnimals();
    void randomEvent();
    void payoff();
