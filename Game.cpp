@@ -1,4 +1,4 @@
-// #include "userInputValidator.hpp"
+	// #include "userInputValidator.hpp"
 #include "Game.hpp"
 #include <iostream>
 #include <string>
@@ -32,7 +32,6 @@ void Game::startMenu(){
 void Game::setup(){
 	string tigers, penguins, turtles;
 	playerMoney = 100000;
-	isFirstDay = true;
 	zoo = new Zoo();
 
 	cout << "Welcome to Zuuu Tycoon!" << endl <<endl;
@@ -44,7 +43,7 @@ void Game::setup(){
 
 	getline(cin, tigers);
 	for(int n = 0; n < (stoi(tigers)); n++){
-		zoo->buyTiger();
+		zoo->newAnimal(1, 1);
 		playerMoney -= zoo->getTiger()->getCost();
 	}
 
@@ -53,7 +52,7 @@ void Game::setup(){
 
 	getline(cin, penguins);
 	for(int n = 0; n < (stoi(penguins)); n++){
-		zoo->buyPenguin();
+		zoo->newAnimal(2, 1);
 		playerMoney -= zoo->getPenguin()->getCost();
 	}
 
@@ -62,7 +61,7 @@ void Game::setup(){
 
 	getline(cin, turtles);
 	for(int n = 0; n < (stoi(turtles)); n++){
-		zoo->buyTurtle();
+		zoo->newAnimal(3, 1);
 		playerMoney -= zoo->getTurtle()->getCost();
 	}
 
@@ -75,18 +74,16 @@ void Game::gameplay(){
 	while(isRunning){
 		cout << "Day " << day << endl
 		<< "=============" << endl << endl;
-
-		if(!zoo->getIsFirstDay()){
+		if(day != 1){
 			zoo->animalsAge();
-			zoo->setIsFirstDay(false);
 		}
 		feedAnimals();
+		cout << "You have " << zoo->getTigerCount() << endl;
 		// randomEvent();
 		// payoff();
-		// purchase();
+		purchase();
 		cout << "Do you want to continue to the next day?" << endl;
 		getline(cin, continueGame);
-
 		setIsRunning(stoi(continueGame));
 		day++;
 	}
@@ -96,7 +93,35 @@ void Game::feedAnimals(){
 	cout << endl << "You have $" << playerMoney << " left." << endl;
 }
 
-
+void Game::purchase(){
+	string choice;
+	cout << "You have " << zoo->getTigerCount() << " tigers." << endl
+		<<"You have " << zoo->getPenguinCount() << " penguins." << endl
+		<<"You have " << zoo->getTurtleCount() << " turtles." << endl
+		<< "You have $" << playerMoney << " left." << endl << endl
+		<< "It is the end of the day!" << endl
+		<< "The exotic pet shop has animals for sale. Would you like to purchase one?" << endl << endl
+		<< "1: Adult Tiger" << endl
+		<<"2: Adult Penguin" << endl
+		<<"3: Adult Turtle" << endl
+		<< "0: Pass on making a purchase" << endl
+		<< "Your choice: ";
+	getline(cin, choice);
+	//validate this	
+	switch(stoi(choice)){
+		case 1:	
+			zoo->newAnimal(stoi(choice), 3);
+			break;
+		case 2:	
+			zoo->newAnimal(stoi(choice), 3);
+			break;
+		case 3:	
+			zoo->newAnimal(stoi(choice), 3);
+			break;
+		case 0:	
+			break;
+	}
+}
 
 void Game::setIsRunning(bool isRunning){
 	this->isRunning = isRunning;

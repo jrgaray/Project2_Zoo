@@ -14,7 +14,6 @@ in charge of the managing of the zoo.
 
 class Zoo{
 private:
-	bool isFirstDay;
 
 	int tigerCount;
 	int penguinCount;
@@ -34,14 +33,7 @@ private:
 public:
 	Zoo();
 	~Zoo();
-	// void buyAnimal(Animal**&, int&);
-	void buyTiger();
-	void buyTurtle();
-	void buyPenguin();
-
-	void tigerIsBorn();
-	void penguinIsBorn();
-	void turtleIsBorn();
+	void newAnimal(int, int);
 
 	int feedAnimalsCost();
 
@@ -52,16 +44,6 @@ public:
 	Animal* getPenguin();
 	Animal* getTurtle();
 
-	// Animal** getTigerArray();
-	// Animal** getPenguinArray();
-	// Animal** getTurtleArray();
-
-	// int& getTigerCount();
-	// int& getPenguinCount();
-	// int& getTurtleCount();
-
-	bool getIsFirstDay();
-	void setIsFirstDay(bool);
 
 
 };
